@@ -16,4 +16,10 @@ export const assetsData: Asset[] = [
     price: 2400,
     date: new Date(),
   },
+  {
+    id: "solana",
+    amount: 17,
+    price: 250,
+    date: new Date(),
+  },
 ];

@@ -28,5 +28,4 @@ export interface Asset {
   growPercent?: number;
   totalAmount?: number;
   totalProfit?: number;
-  notFound?: boolean;
 }
