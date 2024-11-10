@@ -24,4 +24,9 @@ export interface Asset {
   amount: number;
   price: number;
   date: Date;
+  isGrowing?: boolean;
+  growPercent?: number;
+  totalAmount?: number;
+  totalProfit?: number;
+  notFound?: boolean;
 }

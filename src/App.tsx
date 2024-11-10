@@ -2,6 +2,7 @@ import { Layout, Spin } from "antd";
 import { Header, Sider, Content } from "./components/layout";
 import { useEffect, useState } from "react";
 import { getData } from "./services/data";
+import { Crypto } from "./services/types";
 
 function App() {
   const [crypto, setCrypto] = useState<Crypto[]>([]);
@@ -18,13 +19,11 @@ function App() {
     preload();
   }, []);
 
-  console.log(crypto);
-
   return (
     <Layout>
       <Header />
       <Layout>
-        <Sider />
+        {crypto.length > 0 && <Sider cryptoData={crypto} />}
         <Content />
       </Layout>
       <Spin spinning={loading} fullscreen />
