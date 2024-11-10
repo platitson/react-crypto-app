@@ -1,16 +1,22 @@
-import { Layout } from 'antd';
+import { Button, Layout } from "antd";
+import { CryptoSelect } from "../CryptoSelect";
 
 const AntdHeader = Layout.Header;
 
 const headerStyle: React.CSSProperties = {
-    textAlign: 'center',
-    color: '#fff',
-    height: 64,
-    paddingInline: 48,
-    lineHeight: '64px',
-    backgroundColor: '#4096ff',
+  textAlign: "center",
+  height: 64,
+  padding: "1rem",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 export function Header() {
-    return (<AntdHeader style={headerStyle}>Header</AntdHeader>);
+  return (
+    <AntdHeader style={headerStyle}>
+      <CryptoSelect />
+      <Button type="primary">Add asset</Button>
+    </AntdHeader>
+  );
 }

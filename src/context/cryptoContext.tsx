@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { getData } from "../services/data";
 import { assetsData } from "../services/assets";
 import { getPercentDifference } from "../utils";
@@ -58,3 +64,7 @@ export function CryptoContextProvider({ children }: { children: ReactNode }) {
     </CryptoContext.Provider>
   );
 }
+
+export const useCrypto = () => {
+  return useContext(CryptoContext);
+};
