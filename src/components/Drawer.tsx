@@ -5,6 +5,7 @@ type DrawerProps = {
   open: boolean;
   onClose: () => void;
 };
+
 export function Drawer(props: DrawerProps) {
   return (
     <AntdDrawer
@@ -12,8 +13,9 @@ export function Drawer(props: DrawerProps) {
       onClose={props.onClose}
       open={props.open}
       width={600}
+      destroyOnClose
     >
-      <AddAssetForm />
+      <AddAssetForm onClose={props.onClose} />
     </AntdDrawer>
   );
 }

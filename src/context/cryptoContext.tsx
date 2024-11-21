@@ -14,6 +14,7 @@ type CryptoContextType = {
   assets: Asset[];
   crypto: Crypto[];
   loading: boolean;
+  addAsset?: (value: Asset) => void;
 };
 
 export const CryptoContext = createContext<CryptoContextType>({
@@ -27,6 +28,24 @@ export function CryptoContextProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [assets, setAssets] = useState<Asset[]>(assetsData);
 
+  function mapAssets(assets: Asset[]) {
+    return assets.map((asset) => {
+      const coin = crypto.find((c) => c.id === asset.id);
+      if (coin) {
+        setLoading(false);
+        return {
+          ...asset,
+          isGrowing: asset.price < coin.price,
+          growPercent: getPercentDifference(asset.price, coin.price),
+          totalAmount: asset.amount * coin.price,
+          totalProfit: asset.amount * (coin.price - asset.price),
+        };
+      } else {
+        return asset;
+      }
+    });
+  }
+
   useEffect(() => {
     setLoading(true);
     async function preload() {
@@ -39,27 +58,15 @@ export function CryptoContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    setAssets(
-      assets.map((asset) => {
-        const coin = crypto.find((c) => c.id === asset.id);
-        if (coin) {
-          setLoading(false);
-          return {
-            ...asset,
-            isGrowing: asset.price < coin.price,
-            growPercent: getPercentDifference(asset.price, coin.price),
-            totalAmount: asset.amount * coin.price,
-            totalProfit: asset.amount * (coin.price - asset.price),
-          };
-        } else {
-          return asset;
-        }
-      })
-    );
+    setAssets(mapAssets(assets));
   }, [crypto]);
 
+  const addAsset = (newAsset: Asset) => {
+    setAssets((prev) => mapAssets([...prev, newAsset]));
+  };
+
   return (
-    <CryptoContext.Provider value={{ assets, crypto, loading }}>
+    <CryptoContext.Provider value={{ assets, crypto, loading, addAsset }}>
       {children}
     </CryptoContext.Provider>
   );
