@@ -1,5 +1,6 @@
 import { Layout, Typography } from "antd";
 import { useCrypto } from "../../context/cryptoContext";
+import PortfolioChart from "../PortfolioChart";
 
 const AntdContent = Layout.Content;
 
@@ -29,6 +30,7 @@ export function Content() {
       <Typography.Title level={3} style={{ textAlign: "left", color: "#FFF" }}>
         Portfolio: {walletPrice}$
       </Typography.Title>
+      <PortfolioChart />
     </AntdContent>
   );
 }
